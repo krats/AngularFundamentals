@@ -1,20 +1,62 @@
-<!--The content below is only a placeholder and can be replaced.-->
-<div style="text-align:center">
-  <h1>
-    Welcome to {{ title }}!
-  </h1>
-  <img width="300" alt="Angular Logo" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBMMzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMXoiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFWMjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsbD0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoNDkuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg==">
+<div>
+  <h3>Fundamentals</h3>
+  <p>{{ title + '!' }}</p>
+  <p [innerHtml]="title"></p>
+  <div>{{ numberOne + numberTwo }}</div>
+  <div>{{ isHappy ? ':)' : ':(' }}</div>
+  <img [src]="logoUrl">
+  <div>
+    Property Binding :
+    <br>
+    <input type="text" [value]="name">
+  </div>
+  <div>
+    Input Event:
+    <br>
+    <input type="text" [value]="name" (input)="handleInput($event)">
+  </div>
+  <div>
+    Blur Event:
+    <br>
+    <input type="text" [value]="name" (blur)="handleBlur($event)">
+  </div>
+  <div>
+    Two Way Data Binding:
+    <br>
+    <input type="text" [ngModel]="name" (ngModelChange)="handleChange($event)">
+  </div>
+  <div>
+    Two Way Data Binding short:
+    <br>
+    <input type="text" [(ngModel)]="name">
+  </div>
+  <div>
+    Template Ref:
+    <br>
+    <input type="text" [value]="name" #nameInput>
+  </div>
+  <p>The value of name is : <strong>{{ name }}</strong></p>
+  <button (click)="handleClick(nameInput.value)">Get Value</button>
+  <br><br><br><br>
+  <h3>Rendering Flows</h3>
+  <h3>NgIf:</h3>
+  <p *ngIf="name.length > 2">The value of name is : <strong>{{ name }}</strong></p>
+  <ng-template [ngIf]="name.length">
+    <p>The value of name is : <strong>{{ name }}</strong></p>
+  </ng-template>
+  <h3>NgFor:</h3>
+  <h4>Airline passengers</h4>
+  <ul>
+    <li *ngFor="let passenger of passengers; let i = index">
+      {{ i+1 }} : {{ passenger.fullName }}
+    </li>
+  </ul>
+  <h4>Airline passengers using ng-template</h4>
+  <ul>
+    <ng-template ngFor let-passenger let-i="index" [ngForOf]="passengers">
+      <li>
+        {{ i+1 }} : {{ passenger.fullName }}
+      </li>
+    </ng-template>
+  </ul>
 </div>
-<h2>Here are some links to help you start: </h2>
-<ul>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://angular.io/tutorial">Tour of Heroes</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://github.com/angular/angular-cli/wiki">CLI Documentation</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://blog.angular.io/">Angular blog</a></h2>
-  </li>
-</ul>
-

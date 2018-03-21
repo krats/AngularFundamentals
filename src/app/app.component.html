@@ -1,62 +1,128 @@
-<div>
-  <h3>Fundamentals</h3>
-  <p>{{ title + '!' }}</p>
-  <p [innerHtml]="title"></p>
-  <div>{{ numberOne + numberTwo }}</div>
-  <div>{{ isHappy ? ':)' : ':(' }}</div>
-  <img [src]="logoUrl">
+<div class="app">
   <div>
-    Property Binding :
-    <br>
-    <input type="text" [value]="name">
-  </div>
-  <div>
-    Input Event:
-    <br>
-    <input type="text" [value]="name" (input)="handleInput($event)">
-  </div>
-  <div>
-    Blur Event:
-    <br>
-    <input type="text" [value]="name" (blur)="handleBlur($event)">
-  </div>
-  <div>
-    Two Way Data Binding:
-    <br>
-    <input type="text" [ngModel]="name" (ngModelChange)="handleChange($event)">
-  </div>
-  <div>
-    Two Way Data Binding short:
-    <br>
-    <input type="text" [(ngModel)]="name">
-  </div>
-  <div>
-    Template Ref:
-    <br>
-    <input type="text" [value]="name" #nameInput>
-  </div>
-  <p>The value of name is : <strong>{{ name }}</strong></p>
-  <button (click)="handleClick(nameInput.value)">Get Value</button>
-  <br><br><br><br>
-  <h3>Rendering Flows</h3>
-  <h3>NgIf:</h3>
-  <p *ngIf="name.length > 2">The value of name is : <strong>{{ name }}</strong></p>
-  <ng-template [ngIf]="name.length">
+    <h3>Fundamentals</h3>
+    <p>{{ title + '!' }}</p>
+    <p [innerHtml]="title"></p>
+    <div>{{ numberOne + numberTwo }}</div>
+    <div>{{ isHappy ? ':)' : ':(' }}</div>
+    <img [src]="logoUrl">
+    <div>
+      Property Binding :
+      <br>
+      <input type="text" [value]="name">
+    </div>
+    <div>
+      Input Event:
+      <br>
+      <input type="text" [value]="name" (input)="handleInput($event)">
+    </div>
+    <div>
+      Blur Event:
+      <br>
+      <input type="text" [value]="name" (blur)="handleBlur($event)">
+    </div>
+    <div>
+      Two Way Data Binding:
+      <br>
+      <input type="text" [ngModel]="name" (ngModelChange)="handleChange($event)">
+    </div>
+    <div>
+      Two Way Data Binding short:
+      <br>
+      <input type="text" [(ngModel)]="name">
+    </div>
+    <div>
+      Template Ref:
+      <br>
+      <input type="text" [value]="name" #nameInput>
+    </div>
     <p>The value of name is : <strong>{{ name }}</strong></p>
-  </ng-template>
-  <h3>NgFor:</h3>
-  <h4>Airline passengers</h4>
-  <ul>
-    <li *ngFor="let passenger of passengers; let i = index">
-      {{ i+1 }} : {{ passenger.fullName }}
-    </li>
-  </ul>
-  <h4>Airline passengers using ng-template</h4>
-  <ul>
-    <ng-template ngFor let-passenger let-i="index" [ngForOf]="passengers">
-      <li>
+    <button (click)="handleClick(nameInput.value)">Get Value</button>
+    <h3>NgIf:</h3>
+    <p *ngIf="name.length > 2">The value of name is : <strong>{{ name }}</strong></p>
+    <ng-template [ngIf]="name.length">
+      <p>The value of name is : <strong>{{ name }}</strong></p>
+    </ng-template>
+  </div>
+  <div>
+    <h3>Rendering Flows</h3>
+    <h4>Airline passengers using NgFor:</h4>
+    <ul>
+      <li *ngFor="let passenger of passengers; let i = index">
         {{ i+1 }} : {{ passenger.fullName }}
       </li>
-    </ng-template>
-  </ul>
+    </ul>
+    <h4>Airline passengers using ng-template</h4>
+    <ul>
+      <ng-template ngFor let-passenger let-i="index" [ngForOf]="passengers">
+        <li>
+          {{ i+1 }} : {{ passenger.fullName }}
+        </li>
+      </ng-template>
+    </ul>
+    <h4>Airline passengers styled with class. syntax</h4>
+    <ul>
+      <li *ngFor="let passenger of passengers; let i = index">
+        <span [class.checked-in]="passenger.checkedIn" class="status"></span>
+        {{ i+1 }} : {{ passenger.fullName }}
+      </li>
+    </ul>
+    <h4>Airline passengers styled with ngClass</h4>
+    <ul>
+      <li *ngFor="let passenger of passengers; let i = index">
+        <span
+          [ngClass]="{
+          'checked-in': passenger.checkedIn,
+          'status': true
+          }">
+        </span>
+        {{ i+1 }} : {{ passenger.fullName }}
+      </li>
+    </ul>
+    <h4>Airline passengers styled with style. syntax</h4>
+    <ul>
+      <li *ngFor="let passenger of passengers; let i = index">
+        <span
+          class="status"
+          [style.backgroundColor]="passenger.checkedIn ? '#2ecc71': '#c0392b'">
+        </span>
+        {{ i+1 }} : {{ passenger.fullName }}
+      </li>
+    </ul>
+    <h4>Airline passengers styled with ngStyle</h4>
+    <ul>
+      <li *ngFor="let passenger of passengers; let i = index">
+        <span
+          class="status"
+          [ngStyle]="{backgroundColor: passenger.checkedIn ? '#2ecc71': '#c0392b'}">
+        </span>
+        {{ i+1 }} : {{ passenger.fullName }}
+        <p>{{ passenger | json }}</p>
+      </li>
+    </ul>
+    <h4>Airline passengers styled with pipe</h4>
+    <ul>
+      <li *ngFor="let passenger of passengers; let i = index">
+        <span
+          class="status"
+          [ngStyle]="{backgroundColor: passenger.checkedIn ? '#2ecc71': '#c0392b'}">
+        </span>
+        {{ i+1 }} : {{ passenger.fullName | uppercase }}
+        <p>{{ passenger | json }}</p>
+        <p *ngIf="passenger.checkedInDate">Checked In Date : {{ passenger.checkedInDate | date: 'longDate' | uppercase }}</p>
+      </li>
+    </ul>
+    <h4>Airline passengers with safe navigation operator</h4>
+    <ul>
+      <li *ngFor="let passenger of passengers; let i = index">
+        <span
+          class="status"
+          [ngStyle]="{backgroundColor: passenger.checkedIn ? '#2ecc71': '#c0392b'}">
+        </span>
+        {{ i+1 }} : {{ passenger.fullName }}
+        <p *ngIf="passenger.checkedInDate">Checked In Date : {{ passenger.checkedInDate | date: 'longDate' | uppercase }}</p>
+        <div class="children"> Children: {{ passenger.children?.length || 0 }}</div>
+      </li>
+    </ul>
+  </div>
 </div>
